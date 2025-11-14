@@ -38,12 +38,20 @@ def index():
         'name': 'ADHD儿童数学学习API',
         'version': '1.0.0',
         'status': 'running',
+        'port': os.environ.get('PORT', 'unknown'),
         'endpoints': {
             'curriculum': '/api/curriculum',
             'user': '/api/user',
-            'exercise': '/api/exercise'
+            'exercise': '/api/exercise',
+            'health': '/api/health',
+            'init': '/api/init'
         }
     })
+
+@app.route('/ping')
+def ping():
+    """最简单的ping端点"""
+    return 'pong', 200
 
 @app.route('/api/health')
 def health_check():
@@ -80,11 +88,17 @@ def manual_init():
             'message': str(e)
         }), 500
 
-# 创建数据库表
-with app.app_context():
-    db.create_all()
-    print("✅ 数据库表创建成功！")
-    print("💡 提示: 访问 /api/init 来初始化课程数据")
+# 创建数据库表（仅在主进程执行）
+import multiprocessing
+if multiprocessing.current_process().name == 'MainProcess' or os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
+    with app.app_context():
+        try:
+            db.create_all()
+            print("✅ 数据库表创建成功！")
+            print("💡 提示: 访问 /api/init 来初始化课程数据")
+        except Exception as e:
+            print(f"⚠️ 数据库初始化警告: {e}")
+            # 即使数据库初始化失败，应用也应该启动
 
 if __name__ == '__main__':
     # 从环境变量获取端口，Railway等平台会动态分配端口
