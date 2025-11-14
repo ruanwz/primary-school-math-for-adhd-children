@@ -1,0 +1,6 @@
+# API proxy to Railway backend
+# 在部署前，将下面的URL替换为实际的Railway后端地址
+/api/*  https://your-railway-app.up.railway.app/api/:splat  200
+
+# SPA fallback - all routes go to index.html
+/*  /index.html  200
