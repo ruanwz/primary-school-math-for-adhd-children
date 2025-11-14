@@ -53,16 +53,38 @@ def health_check():
         'timestamp': datetime.now().isoformat()
     })
 
+@app.route('/api/init')
+def manual_init():
+    """手动初始化数据库（仅在数据库为空时执行）"""
+    try:
+        from models.curriculum import Grade
+        grade_count = Grade.query.count()
+
+        if grade_count == 0:
+            from utils.init_curriculum import initialize_curriculum
+            initialize_curriculum(db)
+            return jsonify({
+                'status': 'success',
+                'message': '数据库初始化完成',
+                'grades_created': Grade.query.count()
+            })
+        else:
+            return jsonify({
+                'status': 'already_initialized',
+                'message': '数据库已经初始化',
+                'grades_count': grade_count
+            })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
 # 创建数据库表
 with app.app_context():
     db.create_all()
-    print("数据库表创建成功！")
-
-    # 初始化基础数据
-    from utils.init_curriculum import initialize_curriculum
-    if Grade.query.count() == 0:
-        initialize_curriculum(db)
-        print("课程内容初始化完成！")
+    print("✅ 数据库表创建成功！")
+    print("💡 提示: 访问 /api/init 来初始化课程数据")
 
 if __name__ == '__main__':
     # 从环境变量获取端口，Railway等平台会动态分配端口
