@@ -26,7 +26,8 @@
 2. 找到 **"Settings"** → **"Service"**
 3. 设置：
    - **Root Directory**: `backend`
-   - **Start Command**: `python app.py`
+   - **Start Command**: `gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120`
+   - 或留空让Railway自动检测Procfile
 
 ### 1.4 配置端口（重要！）
 1. 在 **"Settings"** → **"Networking"**
