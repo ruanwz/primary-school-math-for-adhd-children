@@ -1,7 +1,7 @@
 """练习题相关API路由"""
 from flask import Blueprint, jsonify, request
 from models.curriculum import Exercise
-from app import db
+from database import db
 
 exercise_bp = Blueprint('exercise', __name__)
 

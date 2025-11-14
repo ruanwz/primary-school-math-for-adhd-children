@@ -1,6 +1,6 @@
 """用户相关数据模型"""
 from datetime import datetime
-from app import db
+from database import db
 
 class User(db.Model):
     """用户模型"""

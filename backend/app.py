@@ -3,7 +3,6 @@ ADHD儿童数学学习应用 - Flask后端
 """
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
 
@@ -17,7 +16,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 CORS(app)
 
 # 初始化数据库
-db = SQLAlchemy(app)
+from database import db
+db.init_app(app)
 
 # 导入模型和路由
 from models.user import User, UserProgress, Achievement

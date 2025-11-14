@@ -1,6 +1,6 @@
 """课程内容数据模型"""
 from datetime import datetime
-from app import db
+from database import db
 import json
 
 class Grade(db.Model):

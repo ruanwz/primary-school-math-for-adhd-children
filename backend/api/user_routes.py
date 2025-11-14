@@ -2,7 +2,7 @@
 from flask import Blueprint, jsonify, request
 from models.user import User, UserProgress, Achievement, UserAchievement
 from models.curriculum import Topic
-from app import db
+from database import db
 from datetime import datetime
 
 user_bp = Blueprint('user', __name__)

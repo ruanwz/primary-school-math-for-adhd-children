@@ -1,7 +1,7 @@
 """课程相关API路由"""
 from flask import Blueprint, jsonify, request
 from models.curriculum import Grade, Topic, Exercise
-from app import db
+from database import db
 
 curriculum_bp = Blueprint('curriculum', __name__)
 
