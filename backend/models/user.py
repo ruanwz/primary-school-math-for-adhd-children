@@ -124,3 +124,96 @@ class UserAchievement(db.Model):
             'achievement': self.achievement.to_dict() if self.achievement else None,
             'earned_at': self.earned_at.isoformat() if self.earned_at else None
         }
+
+
+class TopicMastery(db.Model):
+    """知识点掌握度评估"""
+    __tablename__ = 'topic_mastery'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    topic_id = db.Column(db.Integer, db.ForeignKey('topics.id'), nullable=False)
+
+    # 掌握度等级：1=需加强, 2=基本掌握, 3=完全掌握
+    mastery_level = db.Column(db.Integer, default=0)  # 0=未评估
+
+    # 评估数据
+    total_attempts = db.Column(db.Integer, default=0)  # 总尝试次数
+    successful_attempts = db.Column(db.Integer, default=0)  # 成功次数
+    average_time = db.Column(db.Float, default=0.0)  # 平均答题时间(秒)
+    hints_used = db.Column(db.Integer, default=0)  # 使用提示次数
+
+    # 最近表现（最近5次）
+    recent_accuracy = db.Column(db.Float, default=0.0)  # 最近正确率
+
+    # 自适应难度
+    current_difficulty = db.Column(db.Integer, default=1)  # 当前难度 1-3
+
+    # 时间记录
+    first_assessed = db.Column(db.DateTime, default=datetime.now)
+    last_assessed = db.Column(db.DateTime, default=datetime.now)
+    next_review_date = db.Column(db.DateTime)  # 建议复习日期
+
+    def to_dict(self):
+        accuracy = 0
+        if self.total_attempts > 0:
+            accuracy = round((self.successful_attempts / self.total_attempts) * 100, 1)
+
+        # 掌握度文字描述
+        mastery_text = ['未评估', '需要加强', '基本掌握', '完全掌握'][self.mastery_level]
+
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'topic_id': self.topic_id,
+            'mastery_level': self.mastery_level,
+            'mastery_text': mastery_text,
+            'total_attempts': self.total_attempts,
+            'successful_attempts': self.successful_attempts,
+            'accuracy': accuracy,
+            'recent_accuracy': self.recent_accuracy,
+            'average_time': self.average_time,
+            'hints_used': self.hints_used,
+            'current_difficulty': self.current_difficulty,
+            'first_assessed': self.first_assessed.isoformat() if self.first_assessed else None,
+            'last_assessed': self.last_assessed.isoformat() if self.last_assessed else None,
+            'next_review_date': self.next_review_date.isoformat() if self.next_review_date else None
+        }
+
+
+class GameAttempt(db.Model):
+    """游戏尝试记录"""
+    __tablename__ = 'game_attempts'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    topic_id = db.Column(db.Integer, db.ForeignKey('topics.id'), nullable=False)
+    exercise_id = db.Column(db.Integer, db.ForeignKey('exercises.id'), nullable=False)
+
+    # 游戏类型
+    game_type = db.Column(db.String(50))  # 'drag_drop', 'click', 'match', etc.
+
+    # 答题数据
+    is_correct = db.Column(db.Boolean, nullable=False)
+    time_spent = db.Column(db.Integer)  # 秒
+    attempt_count = db.Column(db.Integer, default=1)  # 尝试次数
+    hints_used = db.Column(db.Integer, default=0)  # 使用提示次数
+
+    # 详细记录（JSON格式）
+    attempt_data = db.Column(db.Text)  # 存储详细操作数据
+
+    created_at = db.Column(db.DateTime, default=datetime.now)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'topic_id': self.topic_id,
+            'exercise_id': self.exercise_id,
+            'game_type': self.game_type,
+            'is_correct': self.is_correct,
+            'time_spent': self.time_spent,
+            'attempt_count': self.attempt_count,
+            'hints_used': self.hints_used,
+            'created_at': self.created_at.isoformat() if self.created_at else None
+        }

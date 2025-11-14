@@ -1,10 +1,16 @@
 """初始化课程内容数据"""
 from models.curriculum import Grade, Topic, Exercise
 from models.user import Achievement
+from utils.init_grade1 import init_grade_1
 import json
 
 def initialize_curriculum(db):
-    """初始化中国小学数学教纲内容 (2-6年级)"""
+    """初始化中国小学数学教纲内容 (1-6年级)"""
+
+    # ========== 一年级 ==========
+    # 使用专门的一年级初始化函数（包含游戏化设计）
+    print("正在初始化一年级内容...")
+    init_grade_1(db, Grade, Topic, Exercise)
 
     # ========== 二年级 ==========
     grade_2 = Grade(
