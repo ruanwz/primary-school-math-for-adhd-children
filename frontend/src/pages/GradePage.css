@@ -1,0 +1,240 @@
+.grade-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding-bottom: 40px;
+}
+
+.page-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.back-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 年级信息卡片 */
+.grade-info-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 32px;
+  margin: 24px 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.grade-number {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  flex-shrink: 0;
+}
+
+.grade-details h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.grade-details p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.topic-count {
+  display: inline-block;
+  padding: 8px 16px;
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* 主题区域 */
+.topics-section {
+  margin-top: 32px;
+}
+
+.section-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 24px;
+}
+
+.topics-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.topic-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.topic-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.topic-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.topic-content {
+  flex: 1;
+}
+
+.topic-content h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.topic-content p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.topic-meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: #888;
+  font-weight: 500;
+}
+
+.meta-item.difficulty {
+  color: #FFD700;
+  font-size: 16px;
+}
+
+.topic-arrow {
+  font-size: 32px;
+  color: #ccc;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.topic-card:hover .topic-arrow {
+  color: #667eea;
+  transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    padding: 16px;
+  }
+
+  .page-header h1 {
+    font-size: 20px;
+  }
+
+  .back-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .grade-info-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px;
+  }
+
+  .grade-number {
+    width: 80px;
+    height: 80px;
+    font-size: 36px;
+  }
+
+  .grade-details h2 {
+    font-size: 24px;
+  }
+
+  .topic-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .topic-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+  }
+
+  .topic-meta {
+    justify-content: center;
+  }
+
+  .topic-arrow {
+    transform: rotate(90deg);
+  }
+
+  .topic-card:hover .topic-arrow {
+    transform: rotate(90deg) translateX(5px);
+  }
+}
