@@ -21,14 +21,22 @@
 3. 选择仓库：`ruanwz/primary-school-math-for-adhd-children`
 
 4. 设置配置：
+   - 点击项目 → "Settings" → "Service"
    - **Root Directory**: `backend`
    - **Start Command**: `python app.py`
    - Railway会自动检测Python项目
 
-5. 等待部署完成（约2-3分钟）
+5. 配置端口：
+   - 在 "Settings" → "Networking"
+   - 找到 "Public Networking"
+   - 在 "Enter the port your app is listening on" 输入：`5000`
+   - 或留空（应用已配置自动读取 `PORT` 环境变量）
 
-6. **复制API地址**：
-   - 在Railway项目页面，点击 "Settings" → "Domains"
+6. 等待部署完成（约2-3分钟）
+
+7. **复制API地址**：
+   - 在Railway项目页面，点击 "Settings" → "Networking"
+   - 点击 "Generate Domain"
    - 生成域名，例如：`https://adhd-math-backend.up.railway.app`
    - **保存这个地址！**
 

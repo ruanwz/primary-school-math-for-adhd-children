@@ -28,12 +28,20 @@
    - **Root Directory**: `backend`
    - **Start Command**: `python app.py`
 
-### 1.4 生成域名
+### 1.4 配置端口（重要！）
+1. 在 **"Settings"** → **"Networking"**
+2. 找到 **"Public Networking"** 部分
+3. 在 **"Enter the port your app is listening on"** 输入：`5000`
+4. 或者留空（Railway会自动使用环境变量 `PORT`，应用已配置支持）
+
+> 💡 **说明**：应用代码已配置为自动读取Railway的 `PORT` 环境变量，通常留空即可。
+
+### 1.5 生成域名
 1. 在 **"Settings"** → **"Networking"**
 2. 点击 **"Generate Domain"**
 3. 📋 **复制生成的域名**（例如：`https://xxx.up.railway.app`）
 
-### 1.5 验证
+### 1.6 验证
 ```bash
 curl https://你的域名.up.railway.app/api/health
 # 应该返回: {"status":"healthy"...}

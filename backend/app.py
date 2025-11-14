@@ -65,4 +65,8 @@ with app.app_context():
         print("课程内容初始化完成！")
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # 从环境变量获取端口，Railway等平台会动态分配端口
+    port = int(os.environ.get('PORT', 5000))
+    # 从环境变量判断是否为生产环境
+    debug = os.environ.get('FLASK_ENV', 'development') == 'development'
+    app.run(debug=debug, host='0.0.0.0', port=port)

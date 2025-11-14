@@ -27,26 +27,33 @@
 3. **配置项目**
    Railway会自动检测到Python项目，但需要设置：
 
-   - 点击项目 → "Settings"
+   - 点击项目 → "Settings" → "Service"
    - **Root Directory**: 设置为 `backend`
    - **Start Command**: `python app.py`
    - **Environment Variables** (可选):
      ```
      FLASK_ENV=production
-     PORT=5000
      ```
 
-4. **生成公开域名**
+4. **配置端口**
+   - 在 "Settings" → "Networking"
+   - 找到 "Public Networking" 部分
+   - 在 "Enter the port your app is listening on" 输入：`5000`
+   - 或者留空（应用已配置自动读取Railway的 `PORT` 环境变量）
+
+   > 💡 **提示**：后端代码已配置为自动读取环境变量 `PORT`，Railway会自动分配端口，通常留空即可。
+
+5. **生成公开域名**
    - 在项目页面，点击 "Settings" → "Networking"
    - 点击 "Generate Domain"
    - 会生成一个域名，例如：`adhd-math-backend.up.railway.app`
    - **📋 复制这个域名，稍后需要使用！**
 
-5. **等待部署完成**
+6. **等待部署完成**
    - 查看 "Deployments" 标签
    - 等待状态变为 "Success"（约2-3分钟）
 
-6. **验证后端运行**
+7. **验证后端运行**
    ```bash
    curl https://adhd-math-backend.up.railway.app/api/health
    # 应该返回: {"status":"healthy","timestamp":"..."}
