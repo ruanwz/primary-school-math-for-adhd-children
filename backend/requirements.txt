@@ -8,6 +8,9 @@ marshmallow==3.20.1
 Flask-Marshmallow==0.15.0
 marshmallow-sqlalchemy==0.29.0
 
+# 生产环境WSGI服务器
+gunicorn==21.2.0
+
 # 数学和科学计算（兼容Python 3.13）
 numpy>=1.26.0
 
