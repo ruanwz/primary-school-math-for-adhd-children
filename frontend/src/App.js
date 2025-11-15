@@ -16,15 +16,7 @@ import AchievementsPage from './pages/AchievementsPage';
 import { UserProvider } from './context/UserContext';
 
 function App() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    // 检查本地存储中是否有用户信息
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
-    }
-  }, []);
+  // 用户状态由UserContext管理，不需要在这里维护
 
   return (
     <UserProvider>

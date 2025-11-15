@@ -17,6 +17,7 @@ const AchievementsPage = () => {
       return;
     }
     loadAchievements();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, navigate]);
 
   const loadAchievements = async () => {

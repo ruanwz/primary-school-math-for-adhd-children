@@ -20,6 +20,7 @@ const GradePage = () => {
       return;
     }
     loadGradeData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gradeId, user, navigate]);
 
   const loadGradeData = async () => {

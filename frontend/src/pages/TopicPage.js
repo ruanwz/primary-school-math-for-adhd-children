@@ -20,6 +20,7 @@ const TopicPage = () => {
       return;
     }
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topicId, user, navigate]);
 
   const loadData = async () => {

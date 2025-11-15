@@ -33,6 +33,7 @@ const ExercisePage = () => {
       return;
     }
     loadExercises();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topicId, user, navigate]);
 
   const loadExercises = async () => {
