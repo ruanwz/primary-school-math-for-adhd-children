@@ -45,11 +45,20 @@ app.register_blueprint(exercise_bp, url_prefix='/api/exercise')
 @app.route('/')
 def index():
     """API根路径"""
+    from models.curriculum import Grade
+    try:
+        grade_count = Grade.query.count()
+    except:
+        grade_count = 'error'
+
     return jsonify({
         'name': 'ADHD儿童数学学习API',
-        'version': '1.0.0',
+        'version': '1.0.1',
+        'deployment': 'auto-init-v2',
         'status': 'running',
         'port': os.environ.get('PORT', 'unknown'),
+        'db_initialized': _db_initialized,
+        'grades_count': grade_count,
         'endpoints': {
             'curriculum': '/api/curriculum',
             'user': '/api/user',

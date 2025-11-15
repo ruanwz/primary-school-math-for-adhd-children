@@ -3,6 +3,13 @@ import axios from 'axios';
 // 确保API URL总是包含 /api 路径
 const getApiBaseUrl = () => {
   const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
+  // 在生产环境（Netlify）使用相对路径，让Netlify代理处理
+  // 在开发环境使用完整URL
+  if (process.env.NODE_ENV === 'production' && !baseUrl.startsWith('http')) {
+    return '/api';
+  }
+
   // 如果URL已经包含 /api，直接使用；否则添加 /api
   return baseUrl.endsWith('/api') ? baseUrl : `${baseUrl}/api`;
 };
