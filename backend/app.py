@@ -88,17 +88,28 @@ def manual_init():
             'message': str(e)
         }), 500
 
-# 创建数据库表（仅在主进程执行）
-import multiprocessing
-if multiprocessing.current_process().name == 'MainProcess' or os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
-    with app.app_context():
-        try:
-            db.create_all()
-            print("✅ 数据库表创建成功！")
-            print("💡 提示: 访问 /api/init 来初始化课程数据")
-        except Exception as e:
-            print(f"⚠️ 数据库初始化警告: {e}")
-            # 即使数据库初始化失败，应用也应该启动
+# 数据库初始化将在第一个请求时执行，而不是在启动时
+# 这避免了worker之间的竞争条件
+_db_initialized = False
+
+def init_db():
+    """初始化数据库（懒加载）"""
+    global _db_initialized
+    if not _db_initialized:
+        with app.app_context():
+            try:
+                db.create_all()
+                print("✅ 数据库表创建成功！", flush=True)
+                print("💡 提示: 访问 /api/init 来初始化课程数据", flush=True)
+                _db_initialized = True
+            except Exception as e:
+                print(f"⚠️ 数据库初始化警告: {e}", flush=True)
+
+# 在第一个请求时初始化数据库
+@app.before_request
+def before_first_request():
+    """在第一个请求前初始化数据库"""
+    init_db()
 
 if __name__ == '__main__':
     # 从环境变量获取端口，Railway等平台会动态分配端口
