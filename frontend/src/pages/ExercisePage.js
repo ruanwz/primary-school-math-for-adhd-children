@@ -45,12 +45,12 @@ const ExercisePage = () => {
         setExercises(response.data.data);
       } else {
         toast.error('没有找到练习题');
-        navigate(-1);
+        navigate(`/topic/${topicId}`);
       }
     } catch (error) {
       console.error('Error loading exercises:', error);
       toast.error('加载练习题失败');
-      navigate(-1);
+      navigate(`/topic/${topicId}`);
     } finally {
       setLoading(false);
     }

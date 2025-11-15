@@ -66,7 +66,7 @@ const TopicPage = () => {
       <div className="page-header">
         <motion.button
           className="back-btn"
-          onClick={() => navigate(-1)}
+          onClick={() => topic?.grade_id ? navigate(`/grade/${topic.grade_id}`) : navigate('/home')}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
