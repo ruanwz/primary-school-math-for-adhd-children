@@ -111,7 +111,17 @@ def init_db():
             try:
                 db.create_all()
                 print("✅ 数据库表创建成功！", flush=True)
-                print("💡 提示: 访问 /api/init 来初始化课程数据", flush=True)
+
+                # 检查是否需要初始化课程数据
+                grade_count = Grade.query.count()
+                if grade_count == 0:
+                    print("🔄 数据库为空，正在自动初始化课程数据...", flush=True)
+                    from utils.init_curriculum import initialize_curriculum
+                    initialize_curriculum(db)
+                    print("✅ 课程数据自动初始化完成！", flush=True)
+                else:
+                    print(f"💡 数据库已有 {grade_count} 个年级数据", flush=True)
+
                 _db_initialized = True
             except Exception as e:
                 print(f"⚠️ 数据库初始化警告: {e}", flush=True)
