@@ -12,8 +12,19 @@ app.config['SECRET_KEY'] = 'adhd-math-learning-secret-key-2024'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///adhd_math.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# 启用CORS
-CORS(app)
+# 启用CORS - 允许Netlify前端访问
+CORS(app, resources={
+    r"/*": {
+        "origins": [
+            "http://localhost:3000",  # 本地开发
+            "https://adhd-math-learning-app.netlify.app",  # Netlify生产环境
+            "https://*.netlify.app"  # 所有Netlify预览部署
+        ],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": False
+    }
+})
 
 # 初始化数据库
 from database import db
