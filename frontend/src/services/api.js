@@ -1,6 +1,13 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+// 确保API URL总是包含 /api 路径
+const getApiBaseUrl = () => {
+  const baseUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  // 如果URL已经包含 /api，直接使用；否则添加 /api
+  return baseUrl.endsWith('/api') ? baseUrl : `${baseUrl}/api`;
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 const api = axios.create({
   baseURL: API_BASE_URL,
